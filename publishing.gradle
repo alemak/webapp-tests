@@ -1,0 +1,5 @@
+// Old Maven plugin - used by Jenkins/Artifactory 'gradle install'
+apply plugin: 'maven'
+artifacts {
+//    package
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <import resource="test-automation-shared.xml" />
+    <context:property-placeholder location="classpath:nap.properties,classpath:napmobile.properties" ignore-unresolvable="true" />
+    <context:component-scan base-package="com.netaporter.pws.automation">
+    </context:component-scan>
+
+    <context:annotation-config />
+
+    <bean id="clothingPage" class="com.netaporter.pws.automation.nap.pages.NAPProductListPage" scope="cucumber-glue">
+        <constructor-arg name="pageName" value="Clothing" />
+        <constructor-arg name="path" value="Shop/Clothing/All" />
+        <constructor-arg name="isMultipleSize" value="true" />
+    </bean>
+
+    <!-- Purchase path brand specific page beans -->
+    <!--<bean id="purchasePathSignInPage" class="com.netaporter.pws.automation.nap.pages.NAPPurchasePathSignInPage" scope="cucumber-glue"/>-->
+    <bean id="purchasePathPaymentPage" class="com.netaporter.pws.automation.nap.pages.NAPPurchasePathPaymentPage" scope="cucumber-glue"/>
+    <bean id="purchasePathConfirmationPage" class="com.netaporter.pws.automation.nap.pages.NAPPurchasePathConfirmationPage" scope="cucumber-glue"/>
+    <bean id="productItemsListComponent" class="com.netaporter.pws.automation.nap.components.NAPProductItemsListComponent" scope="cucumber-glue"/>
+    <!-- Purchase path brand specific page beans -->
+
+    <bean id="listingPageRegistry" class = "com.netaporter.pws.automation.shared.pages.ListingPageRegistry" autowire-candidate="false"/>
+
+
+
+</beans>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:context="http://www.springframework.org/schema/context"
+           xmlns:p="http://www.springframework.org/schema/p"
+           xmlns:amq="http://activemq.apache.org/schema/core"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://activemq.apache.org/schema/core
+       http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+
+    <!-- Components included from testingutils.jar -->
+    <context:component-scan base-package="com.netaporter.test.utils.dataaccess.database" />
+    <context:component-scan base-package="com.netaporter.productservice.api"/>
+    <context:component-scan base-package="com.netaporter.productservice.solr.client"/>
+    <context:component-scan base-package="com.netaporter.test.utils.cucumber"/>
+    <context:component-scan base-package="com.netaporter.test.utils.pages"/>
+    <context:component-scan base-package="com.netaporter.test.utils.http"/>
+    <context:component-scan base-package="com.netaporter.test.utils.messaging"/>
+
+    <!--Components included from Seaview connector -->
+    <context:component-scan base-package="com.netaporter.seaview.connector"/>
+
+    <!-- Components included from WOAS wishlist service jar -->
+    <context:component-scan base-package="com.netaporter.wishlist.woas.client"/>
+
+    <!-- Components included for shared API steps -->
+    <context:component-scan base-package= "com.netaporter.pws.automation.shared.steps.api" />
+
+    <context:component-scan base-package="com.netaporter.pws.automation.shared">
+        <context:exclude-filter type="regex" expression=".*\.steps.*" />
+    </context:component-scan>
+
+    <context:annotation-config />
+    <bean id="glueCodeScope" class="cucumber.runtime.java.spring.GlueCodeScope">
+    </bean>
+
+    <bean id="glueCodeScopeConfigurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+    <property name="scopes">
+        <map>
+            <entry key="cucumber-glue" value-ref="glueCodeScope"/>
+        </map>
+    </property>
+    </bean>
+
+     <bean id="webDriverFactory" class="com.netaporter.test.utils.pages.driver.WebDriverFactory" scope="cucumber-glue">
+        <constructor-arg name="driverName" value="${webdriver:chrome}"/>  <!-- valid values: chrome, firefox, safari or appium -->
+        <constructor-arg name="withProxy" value="false" />
+    </bean>
+    <!-- Start Webdriver with languag-country URL-->
+    <!--<bean id="webDriverUtil" class="com.netaporter.test.utils.pages.driver.WebDriverUtil" scope="cucumber-glue">
+         <property name="firstPageLoadedOverrideURL" value="${firstPageLoadedOverrideURL:${baseUrl}${WebBotLanguage:en}-${WebBotCountry:GB}/}"/>
+    </bean> -->
+
+    <bean id="testCardFactory" class="com.netaporter.test.utils.factories.TestCardFactory" scope="cucumber-glue">
+    </bean>
+
+    <bean id="simpleDateFormat" class="java.text.SimpleDateFormat" scope="prototype">
+        <constructor-arg value="ddMMyyyy" />
+    </bean>
+
+    <!--HybridProductDataAccess config-->
+
+    <bean id="productDataAccess" class="com.netaporter.test.client.product.impl.HybridProductDataAccess">
+        <property name="apiClientFacade">
+            <bean id = "apiClientFacade" class="com.netaporter.productservice.api.APIClientUtils.APIClientFacade">
+                <property name="restClient">
+                    <bean id="restClient" class="com.netaporter.productservice.api.ApiClient" init-method="init">
+                        <property name="baseUri" value="http://lad-likelive.dave.net-a-porter.com:80/"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    <import resource="classpath:seaview-connector-context.xml"/>
+    <!--Seaview-connector-->
+     <bean id="seaviewConnectorUtil" class="com.netaporter.test.utils.dataaccess.seaview.SeaviewConnectorUtil"/>
+     <!--<bean id="seaviewCustomerService" class="com.netaporter.seaview.connector.SeaviewCustomerServiceImpl" />-->
+
+    <!-- Solr config-->
+    <!--<bean id="solrClient" class="com.netaporter.productservice.solr.client.SolrClient"/>    -->
+   <!-- <bean id="singleChannelSolrProductSearch" class="com.netaporter.productservice.solr.client.singlechannel.SingleChannelSolrProductSearch" />
+    <bean id="crossChannelSolrProductSearch" class="com.netaporter.productservice.solr.client.crosschannel.CrossChannelSolrProductSearch" />-->
+
+
+    <!-- the legacy DB client config -->
+    <bean id="dbClientINTL" class="com.netaporter.test.utils.dataaccess.database.LegacyWebAppChannelisedDatabaseClient">
+        <constructor-arg value="INTL"/>
+    </bean>
+    <bean id="dbClientAM" class="com.netaporter.test.utils.dataaccess.database.LegacyWebAppChannelisedDatabaseClient">
+        <constructor-arg value="AM"/>
+    </bean>
+    <bean id="dbClientAPAC" class="com.netaporter.test.utils.dataaccess.database.LegacyWebAppChannelisedDatabaseClient">
+        <constructor-arg value="APAC"/>
+    </bean>
+
+  <!-- <bean id="database" class="com.netaporter.test.utils.dataaccess.database.LegacyWebAppDatabaseClient" scope="cucumber-glue">
+    </bean>
+-->
+
+    <bean id="defaultCustomer" class="com.netaporter.pws.automation.shared.pojos.Customer" scope="cucumber-glue">
+        <constructor-arg name="fname" value="John" />
+        <constructor-arg name="surname" value="Smith" />
+        <constructor-arg name="email" value="#{'test'+simpleDateFormat.format(new java.util.Date())+'@javaTesting.com'}" />
+        <constructor-arg name="password" value="123456" />
+        <constructor-arg name="country" value="United Kingdom" />
+    </bean>
+
+    <!-- Product Collector AMQ destination -->
+    <amq:queue id="pcollProductInfoDestination" physicalName="topic-product_info-product-collector" />
+
+    <bean id="pCollJmsProducerTemplate" class="org.springframework.jms.core.JmsTemplate"
+          p:connectionFactory-ref="jmsProducerConnectionFactory"
+          p:defaultDestination-ref="pcollProductInfoDestination" />
+
+    <!--Exporter AMQ destination-->
+    <amq:queue id="exporterOrderStatusDestination" physicalName="nap-intl-orders" />
+
+    <bean id="exporterJmsProducerTemplate" class="org.springframework.jms.core.JmsTemplate"
+          p:connectionFactory-ref="jmsProducerConnectionFactory"
+          p:defaultDestination-ref="exporterOrderStatusDestination" />
+
+    <amq:connectionFactory id="svcBrokerFactory" brokerURL="tcp://${jms.svc.host}:${jms.svc.port}" />
+
+    <bean id="jmsProducerConnectionFactory"
+          class="org.springframework.jms.connection.SingleConnectionFactory"
+          p:targetConnectionFactory-ref="svcBrokerFactory" />
+
+
+    <!-- Site specific profiles -->
+    <beans profile="nap">
+        <import resource="test-automation-nap.xml" />
+    </beans>
+
+    <beans profile="napmobile">
+        <import resource="test-automation-napmobile.xml" />
+    </beans>
+
+    <beans profile="napmobileweb">
+        <import resource="test-automation-napmobileweb.xml" />
+    </beans>
+
+    <!-- Environment specific profiles -->
+    <beans profile="naplabs">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/naplabs.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="naplabs-mobile">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/naplabs-mobile.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="napdev">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/napdev.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="ux">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/ux.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="presale">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/presale.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="lsr">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/lsr.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="napdev-mobile">
+        <import resource="test-automation-napmobile.xml" />
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/napdev-mobile.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="ux-mobile">
+        <import resource="test-automation-napmobile.xml" />
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/ux-mobile.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="presale-mobile">
+        <import resource="test-automation-napmobile.xml" />
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/presale-mobile.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="napdev-mobile-android">
+        <import resource="test-automation-napmobile.xml" />
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/napdev-mobileandroid.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <!-- From here SEAVIEW only   -->
+    <!-- copy out-outdev and create for seaview   -->
+	<beans profile="svw">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/svw.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <!--Till here SEAVIEW only   -->
+
+
+    <!-- ECOMM -->
+    <beans profile="ecomm">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/ecomm.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <!-- ECOMM mobile -->
+    <beans profile="ecomm-mobile">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/ecomm-mobile.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <!-- RELEASE  -->
+    <beans profile="reltest05">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/ux.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="reltest07">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/presale.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="reltestA">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/reltestA.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="reltestB">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/reltestB.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="reltestC">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/reltestC.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+    <beans profile="reltestC-mobile">
+        <context:property-placeholder location="classpath:environments/dave.net-a-porter.com.properties,classpath:environments/reltestC-mobile.dave.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+
+    <!--dummy live profile-->
+    <beans profile="live">
+        <context:property-placeholder location="classpath:environments/live.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+    <!--end dummy live profile-->
+
+
+    <beans profile="local">
+        <context:property-placeholder location="classpath:environments/local.net-a-porter.com.properties" ignore-unresolvable="true" />
+    </beans>
+
+</beans>

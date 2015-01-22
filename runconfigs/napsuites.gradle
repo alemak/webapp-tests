@@ -1,0 +1,342 @@
+task BuildABear()<<{
+    go()
+}
+//NAP Webapp Tasks
+//NAPDEV
+task NapIntlDev(dependsOn: ['regionINTL', 'environmentnapdev','build','suiteChannelizedWebapp' ] )<< {
+    go()
+ }
+task NapAmDev(dependsOn: ['regionAM', 'environmentnapdev','build','suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapApacDev(dependsOn: ['regionAPAC', 'environmentnapdev', 'build','suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapNonChannelizedDev(dependsOn: ['environmentnapdev', 'build','suiteNonchannelizedWebapp' ] )<< {
+    go()
+}
+task NapNonChannelizedDevFF(dependsOn: ['webdriverFirefox','environmentnapdev', 'build','suiteNonchannelizedWebapp' ] )<< {
+    go()
+}
+//UX DEV Environment
+task NapIntlUx(dependsOn: ['regionINTL', 'environmentux','build','suiteChannelizedWebapp' ] )<< {
+    go()
+ }
+task NapAmUx(dependsOn: ['regionAM', 'environmentux','build','suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapApacUx(dependsOn: ['regionAPAC', 'environmentux', 'build','suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapNonChannelizedUx(dependsOn: ['environmentux', 'build','suiteNonchannelizedWebapp' ] )<< {
+    go()
+}
+//RELEASE ENVIRONMENTS
+task NapIntlReltestA(dependsOn: ['regionINTL', 'environmentreltestA', 'build','suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapAmReltestA(dependsOn: ['regionAM', 'environmentreltestA', 'build','suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapApacReltestA(dependsOn: ['regionAPAC', 'environmentreltestA','build', 'suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapNonChannelizedReltestA(dependsOn: ['environmentreltestA', 'build','suiteNonchannelizedWebapp' ] )<< {
+    go()
+}
+
+task NapIntlReltestC(dependsOn: ['regionINTL', 'environmentreltestC','build', 'suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapAmReltestC(dependsOn: ['regionAM', 'environmentreltestC','build', 'suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapApacReltestC(dependsOn: ['regionAPAC', 'environmentreltestC','build', 'suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapNonChannelizedReltestC(dependsOn: ['environmentreltestC','build', 'suiteNonchannelizedWebapp' ] )<< {
+    go()
+}
+
+task NapIntlLsr(dependsOn: ['regionINTL', 'environmentlsr','build', 'suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapAmLsr(dependsOn: ['regionAM', 'environmentlsr','build', 'suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapApacLsr(dependsOn: ['regionAPAC', 'environmentlsr','build', 'suiteChannelizedWebapp' ] )<< {
+    go()
+}
+task NapNonChannelizedLsr(dependsOn: ['environmentlsr','build', 'suiteNonchannelizedWebapp' ] )<< {
+    go()
+}
+//LIVE
+task NapIntlLiveSanitySuite(dependsOn: [ 'regionINTL', 'environmentlive', 'build', 'suiteLiveSanity'] ) << {
+    go()
+}
+
+//NAP Catalogue Tasks
+task NapCatalogueIntlDev(dependsOn: ['regionINTL', 'environmentnapdev', 'build','suiteChannelizedCatalogue' ] )<< {
+    go()
+     }
+task NapCatalogueAmDev(dependsOn: ['regionAM', 'environmentnapdev','build', 'suiteChannelizedCatalogue' ] )<< {
+    go()
+     }
+task NapCatalogueApacDev(dependsOn: ['regionAPAC', 'environmentnapdev','build', 'suiteChannelizedCatalogue' ] )<< {
+    go()
+     }
+task NapCatalogueNonChannelizedDev(dependsOn: ['environmentnapdev','build', 'suiteNonChannelizedCatalogue' ] )<< {
+    go()
+     }
+
+//NAP Product Detail Page Catalogue Tasks
+task NapProductPageAppIntlUx(dependsOn: ['regionINTL', 'environmentux', 'build','suiteChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+task NapProductPageAppAmUx(dependsOn: ['regionAM', 'environmentux','build', 'suiteChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+task NapProductPageAppApacUx(dependsOn: ['regionAPAC', 'environmentux','build', 'suiteChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+task NapProductPageAppNonChannelizedUx(dependsOn: ['environmentux','build', 'suiteNonChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+
+task NapProductPageAppIntlPreSale(dependsOn: ['regionINTL', 'environmentpresale', 'build','suiteChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+task NapProductPageAppAmPreSale(dependsOn: ['regionAM', 'environmentpresale','build', 'suiteChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+task NapProductPageAppApacPreSale(dependsOn: ['regionAPAC', 'environmentpresale','build', 'suiteChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+task NapProductPageAppNonChannelizedPreSale(dependsOn: ['environmentpresale','build', 'suiteNonChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+
+task NapProductPageAppIntlNapDev(dependsOn: ['regionINTL', 'environmentnapdev', 'build','suiteChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+task NapProductPageAppAmNapDev(dependsOn: ['regionAM', 'environmentnapdev','build', 'suiteChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+task NapProductPageAppApacNapDev(dependsOn: ['regionAPAC', 'environmentnapdev','build', 'suiteChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+task NapProductPageAppNonChannelizedNapDev(dependsOn: ['environmentnapdev','build', 'suiteNonChannelizedPDPCatalogue' ] )<< {
+    go()
+}
+
+//responsive Tasks
+task NapResponsiveIntlPresale(dependsOn: ['regionINTL', 'environmentpresale', 'build','suiteChannelizedResponsive' ] )<< {
+    go()
+}
+task NapResponsiveAmPresale(dependsOn: ['regionAM', 'environmentpresale','build', 'suiteChannelizedResponsive' ] )<< {
+    go()
+}
+task NapResponsiveApacPresale(dependsOn: ['regionAPAC', 'environmentpresale','build', 'suiteChannelizedResponsive' ] )<< {
+    go()
+}
+task NapResponsiveNonChannelizedPresale(dependsOn: ['environmentpresale','build', 'suiteNonChannelizedResponsive' ] )<< {
+    go()
+}
+
+//Girdle Tasks
+task NapGirdleIntlUx(dependsOn: ['regionINTL', 'environmentux', 'build','suiteChannelizedGirdle' ] )<< {
+    go()
+}
+task NapGirdleAmUx(dependsOn: ['regionAM', 'environmentux','build', 'suiteChannelizedGirdle' ] )<< {
+    go()
+}
+task NapGirdleApacUx(dependsOn: ['regionAPAC', 'environmentux','build', 'suiteChannelizedGirdle' ] )<< {
+    go()
+}
+task NapGirdleNonChannelizedUx(dependsOn: ['environmentux','build', 'suiteNonChannelizedGirdle' ] )<< {
+    go()
+}
+
+task NapGirdleIntlPreSale(dependsOn: ['regionINTL', 'environmentpresale', 'build','suiteChannelizedGirdle' ] )<< {
+    go()
+}
+task NapGirdleAmPreSale(dependsOn: ['regionAM', 'environmentpresale','build', 'suiteChannelizedGirdle' ] )<< {
+    go()
+}
+task NapGirdleApacPreSale(dependsOn: ['regionAPAC', 'environmentpresale','build', 'suiteChannelizedGirdle' ] )<< {
+    go()
+}
+task NapGirdleNonChannelizedPreSale(dependsOn: ['environmentpresale','build', 'suiteNonChannelizedGirdle' ] )<< {
+    go()
+}
+
+task NapGirdleIntlNapDev(dependsOn: ['regionINTL', 'environmentnapdev', 'build','suiteChannelizedGirdle' ] )<< {
+    go()
+}
+task NapGirdleAmNapDev(dependsOn: ['regionAM', 'environmentnapdev','build', 'suiteChannelizedGirdle' ] )<< {
+    go()
+}
+task NapGirdleApacNapDev(dependsOn: ['regionAPAC', 'environmentnapdev','build', 'suiteChannelizedGirdle' ] )<< {
+    go()
+}
+task NapGirdleNonChannelizedNapDev(dependsOn: ['environmentnapdev','build', 'suiteNonChannelizedGirdle' ] )<< {
+    go()
+}
+
+//Live Chat
+task NapLiveChatIntlUx(dependsOn: ['regionINTL', 'environmentux', 'build','suiteChannelizedLiveChat' ] )<< {
+    go()
+}
+task NapLiveChatAmUx(dependsOn: ['regionAM', 'environmentux','build', 'suiteChannelizedLiveChat' ] )<< {
+    go()
+}
+task NapLiveChatApacUx(dependsOn: ['regionAPAC', 'environmentux','build', 'suiteChannelizedLiveChat' ] )<< {
+    go()
+}
+task NapLiveChatNonChannelizedUx(dependsOn: ['environmentux','build', 'suiteNonChannelizedLiveChat' ] )<< {
+    go()
+}
+
+task NapLiveChatIntlPreSale(dependsOn: ['regionINTL', 'environmentpresale', 'build','suiteChannelizedLiveChat' ] )<< {
+    go()
+}
+task NapLiveChatAmPreSale(dependsOn: ['regionAM', 'environmentpresale','build', 'suiteChannelizedLiveChat' ] )<< {
+    go()
+}
+task NapLiveChatApacPreSale(dependsOn: ['regionAPAC', 'environmentpresale','build', 'suiteChannelizedLiveChat' ] )<< {
+    go()
+}
+task NapLiveChatNonChannelizedPreSale(dependsOn: ['environmentpresale','build', 'suiteNonChannelizedLiveChat' ] )<< {
+    go()
+}
+
+task NapLiveChatIntlNapDev(dependsOn: ['regionINTL', 'environmentnapdev', 'build','suiteChannelizedLiveChat' ] )<< {
+    go()
+}
+task NapLiveChatAmNapDev(dependsOn: ['regionAM', 'environmentnapdev','build', 'suiteChannelizedLiveChat' ] )<< {
+    go()
+}
+task NapLiveChatApacNapDev(dependsOn: ['regionAPAC', 'environmentnapdev','build', 'suiteChannelizedLiveChat' ] )<< {
+    go()
+}
+task NapLiveChatNonChannelizedNapDev(dependsOn: ['environmentnapdev','build', 'suiteNonChannelizedLiveChat' ] )<< {
+    go()
+}
+
+//ECOMM Tasks
+task NapIntlEcomm(dependsOn: [ 'regionINTL','environmentecomm', 'build','suiteEcommchannelized'])<< {
+    go()
+}
+task NapAmEcomm(dependsOn: [ 'regionAM','environmentecomm', 'build','suiteEcommchannelized'])<< {
+    go()
+}
+task NapApacEcomm(dependsOn: [ 'regionAPAC','environmentecomm', 'build','suiteEcommchannelized'])<< {
+    go()
+}
+task NapNonchannelizedEcomm(dependsOn: [ 'environmentecomm', 'build','suiteEcommnonchannelized'])<< {
+    go()
+}
+
+//test nap-ecomm tasks - using nap and ecomm tagging - to be removed later
+task NapEcommIntlReltestC(dependsOn: [ 'regionINTL','environmentreltestC', 'build','suiteNapEcommchannelized'])<< {
+    go()
+}
+task NapEcommAmReltestC(dependsOn: [ 'regionAM','environmentreltestC', 'build','suiteNapEcommchannelized'])<< {
+    go()
+}
+task NapEcommApacReltestC(dependsOn: [ 'regionAPAC','environmentreltestC', 'build','suiteNapEcommchannelized'])<< {
+    go()
+}
+task NapEcommNonchannelizedReltestC(dependsOn: ['environmentreltestC', 'build','suiteNapEcommnonchannelized'])<< {
+    go()
+}
+
+task NapEcommIntlReltestA(dependsOn: ['regionINTL','environmentreltestA', 'build','suiteNapEcommchannelized'])<< {
+    go()
+}
+task NapEcommAmReltestA(dependsOn: [ 'regionAM','environmentreltestA', 'build','suiteNapEcommchannelized'])<< {
+    go()
+}
+task NapEcommApacReltestA(dependsOn: ['brandNAP', 'regionAPAC','environmentreltestA', 'build','suiteNapEcommchannelized'])<< {
+    go()
+}
+task NapEcommNonchannelizedReltestA(dependsOn: ['environmentreltestA', 'build','suiteNapEcommnonchannelized'])<< {
+    go()
+}
+task NapNonChannelizedDebugTaskReltestA(dependsOn: [ 'environmentreltestA', 'build', 'suiteNapDebugTask'])<< {
+    go()
+}
+
+//NapMobile Tasks
+task NapMobileDev(dependsOn: ['webdriverAppium', 'regionINTL','environmentnapdev-mobile', 'build','suiteNapmobile'])<< {
+    go()
+}
+task NapMobileAndroidDev(dependsOn: ['webdriverAppium', 'regionINTL','environmentnapdev-mobile-android', 'build','suiteNapmobile'])<< {
+    go()
+}
+
+//NAP Purchase Path tests
+
+//napdev environment
+task NapPurchIntlChannelizedNapdev(dependsOn: ['regionINTL', 'environmentnapdev','build', 'suitenappurchchannelized' ] )<< {
+    go()
+}
+task NapPurchAmChannelizedNapdev(dependsOn: ['regionAM', 'environmentnapdev','build', 'suiteNapPurchChannelized' ] )<< {
+    go()
+}
+task NapPurchApacChannelizedNapdev(dependsOn: ['regionAPAC', 'environmentnapdev','build', 'suiteNapPurchChannelized' ] )<< {
+    go()
+}
+task NapPurchNonChannelizedNapdev(dependsOn: [ 'environmentnapdev','build', 'suiteNapPurchNonChannelized' ] )<< {
+    runtests()
+}
+
+//ux environment
+task NapPurchIntlChannelizedUx(dependsOn: ['regionINTL', 'environmentux','build', 'suitenappurchchannelized' ] )<< {
+    go()
+}
+task NapPurchAmChannelizedUx(dependsOn: ['regionAM', 'environmentux','build', 'suiteNapPurchChannelized' ] )<< {
+    go()
+}
+task NapPurchApacChannelizedUx(dependsOn: ['regionAPAC', 'environmentux','build', 'suiteNapPurchChannelized' ] )<< {
+    go()
+}
+task NapPurchNonChannelizedUx(dependsOn: [ 'environmentux','build', 'suiteNapPurchNonChannelized' ] )<< {
+    go()
+}
+task NapIntlLiveSanitySuiteUx(dependsOn: [ 'regionINTL', 'environmentux', 'build', 'suiteLiveSanity'] ) << {
+    go()
+}
+
+//NAP FIND New Listing Pages tests
+
+//napdev
+task NapFindIntlChannelizedNapdev(dependsOn: ['regionINTL', 'environmentnapdev','build','suitenapfindchannelized'])<< {
+    go()
+}
+task NapFindAmChannelizedNapdev(dependsOn: ['regionINTL', 'environmentnapdev','build','suitenapfindchannelized'])<< {
+    go()
+}
+task NapFindApacChannelizedNapdev(dependsOn: ['regionINTL', 'environmentnapdev','build','suitenapfindchannelized'])<< {
+    go()
+}
+task NapFindNonChannelizedNapdev(dependsOn: ['regionINTL', 'environmentnapdev','build','suitenapfindchannelized'])<< {
+    go()
+}
+
+
+
+//ux
+task NapFindIntlChannelizedUx(dependsOn: ['regionINTL', 'environmentux','build','suitenapfindchannelized'])<< {
+    go()
+}
+task NapFindAmChannelizedUx(dependsOn: ['regionINTL', 'environmentux','build','suitenapfindchannelized'])<< {
+    go()
+}
+task NapFindApacChannelizedUx(dependsOn: ['regionINTL', 'environmentux','build','suitenapfindchannelized'])<< {
+    go()
+}
+task NapFindNonChannelizedUx(dependsOn: ['regionINTL', 'environmentux','build','suitenapfindchannelized'])<< {
+    go()
+}
+

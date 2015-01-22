@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <!-- Purchase path page beans -->
+    <!--<bean id="purchasePathSignInPage" class="com.netaporter.pws.automation.shared.pages.purchasePath.PurchasePathSignInPage" scope="cucumber-glue" abstract="true"/>-->
+    <bean id="purchasePathShippingAddressPage" class="com.netaporter.pws.automation.shared.pages.purchasePath.PurchasePathShippingAddressPage" scope="cucumber-glue"/>
+    <bean id="purchasePathShippingMethodPage" class="com.netaporter.pws.automation.shared.pages.purchasePath.PurchasePathShippingMethodPage" scope="cucumber-glue"/>
+    <bean id="purchasePathBillingAddressPage" class="com.netaporter.pws.automation.shared.pages.purchasePath.PurchasePathBillingAddressPage" scope="cucumber-glue"/>
+    <bean id="purchasePathPaymentPage" class="com.netaporter.pws.automation.shared.pages.purchasePath.PurchasePathPaymentPage" scope="cucumber-glue" abstract="true"/>
+    <bean id="purchasePathConfirmationPage" class="com.netaporter.pws.automation.shared.pages.purchasePath.PurchasePathConfirmationPage" scope="cucumber-glue" abstract="true"/>
+    <bean id="productItemsListComponent" class="com.netaporter.pws.automation.shared.components.ProductItemsListComponent" scope="cucumber-glue" abstract="true"/>
+    <!-- Purchase path page beans -->
+
+   <!--&lt;!&ndash;  Purchase path step beans &ndash;&gt;-->
+    <!--<bean id="purchasePathSignInSteps" class="com.netaporter.pws.automation.shared.steps.purchasePath.PurchasePathSignInSteps" scope="cucumber-glue"/>-->
+    <!--<bean id="purchasePathAddressSteps" class="com.netaporter.pws.automation.shared.steps.purchasePath.PurchasePathAddressSteps" scope="cucumber-glue"/>-->
+    <!--<bean id="purchasePathPackagingOptionSteps" class="com.netaporter.pws.automation.shared.steps.purchasePath.PurchasePathPackagingOptionSteps" scope="cucumber-glue"/>-->
+    <!--<bean id="purchasePathShippingOptionSteps" class="com.netaporter.pws.automation.shared.steps.purchasePath.PurchasePathShippingOptionSteps" scope="cucumber-glue"/>-->
+    <!--<bean id="purchasePathPaymentSteps" class="com.netaporter.pws.automation.shared.steps.purchasePath.PurchasePathPaymentSteps" scope="cucumber-glue"/>-->
+    <!--<bean id="purchasePathOrderConfirmationSteps" class="com.netaporter.pws.automation.shared.steps.purchasePath.PurchasePathOrderConfirmationSteps" scope="cucumber-glue"/>-->
+    <!--<bean id="productServiceSteps" class="com.netaporter.pws.automation.shared.steps.ProductServiceSteps" scope="cucumber-glue"/>-->
+    <!--&lt;!&ndash; Purchase path step beans &ndash;&gt;-->
+
+    <!-- Gift card page beans -->
+    <bean id="giftCardLandingPage" class="com.netaporter.pws.automation.shared.pages.giftCards.GiftCardLandingPage" scope="cucumber-glue" abstract="true"/>
+    <bean id="virtualGiftCardPage" class="com.netaporter.pws.automation.shared.pages.giftCards.VirtualGiftCardPage" scope="cucumber-glue"/>
+    <bean id="boxedGiftCardPage" class="com.netaporter.pws.automation.shared.pages.giftCards.BoxedGiftCardPage" scope="cucumber-glue"/>
+    <!-- Gift card page beans -->
+
+    <!-- regionSteps -->
+    <!--<bean id="regionSettingCommonSteps" class="com.netaporter.pws.automation.shared.steps.RegionSettingCommonSteps" scope="cucumber-glue"/>-->
+    <!-- regionSteps -->
+
+    <!--<bean id="customerCreditsSteps" class="com.netaporter.pws.automation.shared.steps.CustomerCreditsSteps" scope="cucumber-glue"/>-->
+
+    <util:set id="validAMGroundShippingSkus">
+        <value>9000101-002</value>
+        <value>9000103-002</value>
+        <value>9000105-002</value>
+        <value>9000107-002</value>
+        <value>9000109-002</value>
+        <value>9000111-002</value>
+        <value>9000113-002</value>
+        <value>9000115-002</value>
+        <value>9000117-002</value>
+        <value>9000132-002</value>
+        <value>9000133-002</value>
+        <value>9000134-002</value>
+        <value>9000135-002</value>
+        <value>9000136-002</value>
+        <value>9000137-002</value>
+        <value>9000138-002</value>
+        <value>9000139-002</value>
+        <value>9000140-002</value>
+        <value>9000141-002</value>
+        <value>900039-002</value>
+        <value>900041-002</value>
+        <value>900043-002</value>
+        <value>900045-002</value>
+        <value>900047-002</value>
+        <value>900049-002</value>
+        <value>900051-002</value>
+        <value>900055-002</value>
+        <value>900057-002</value>
+        <value>900059-002</value>
+        <value>900061-002</value>
+        <value>900063-002</value>
+        <value>900065-002</value>
+        <value>900067-002</value>
+        <value>900069-002</value>
+        <value>900071-002</value>
+        <value>900073-002</value>
+        <value>900075-002</value>
+        <value>900077-002</value>
+        <value>900079-002</value>
+        <value>900081-002</value>
+        <value>900083-002</value>
+        <value>900085-002</value>
+        <value>900087-002</value>
+        <value>900089-002</value>
+        <value>900091-002</value>
+        <value>900093-002</value>
+        <value>900095-002</value>
+        <value>900097-002</value>
+        <value>900099-002</value>
+        <value>9000205-001</value>
+        <value>9000206-001</value>
+	</util:set>
+
+    <util:set id="validAMPremierShippingSkus">
+        <value>9000211-001</value>
+        <value>9000217-001</value>
+    </util:set>
+
+    <util:set id="validAMNextDayShippingSkus">
+        <value>9010100-001</value>
+        <value>900082-001</value>
+        <value>900084-001</value>
+        <value>900086-001</value>
+        <value>900088-001</value>
+        <value>900090-001</value>
+        <value>900092-001</value>
+        <value>9000104-001</value>
+        <value>9000106-001</value>
+        <value>9000108-001</value>
+        <value>9000110-001</value>
+        <value>9000112-001</value>
+        <value>9000114-001</value>
+        <value>9000116-001</value>
+        <value>900027-001</value>
+        <value>900028-001</value>
+        <value>900029-001</value>
+        <value>900030-001</value>
+        <value>900031-001</value>
+        <value>900032-001</value>
+        <value>900033-001</value>
+        <value>900034-001</value>
+        <value>900035-001</value>
+        <value>900094-001</value>
+        <value>900096-001</value>
+        <value>900098-001</value>
+        <value>9000100-001</value>
+        <value>9000102-001</value>
+        <value>900036-001</value>
+        <value>900038-001</value>
+        <value>900040-001</value>
+        <value>900042-001</value>
+        <value>900044-001</value>
+        <value>900046-001</value>
+        <value>900048-001</value>
+        <value>900050-001</value>
+        <value>900052-001</value>
+        <value>900054-001</value>
+        <value>900056-001</value>
+        <value>900058-001</value>
+        <value>900060-001</value>
+        <value>900062-001</value>
+        <value>900064-001</value>
+        <value>900066-001</value>
+        <value>900068-001</value>
+        <value>900070-001</value>
+        <value>900072-001</value>
+        <value>900074-001</value>
+        <value>900078-001</value>
+        <value>900080-001</value>
+        <value>900076-001</value>
+        <value>900026-001</value>
+        <value>910026-001</value>
+        <value>910027-001</value>
+        <value>910028-001</value>
+        <value>910029-001</value>
+        <value>910030-001</value>
+        <value>910031-001</value>
+        <value>910032-001</value>
+        <value>910033-001</value>
+        <value>910034-001</value>
+        <value>910035-001</value>
+        <value>910036-001</value>
+        <value>910038-001</value>
+        <value>910040-001</value>
+        <value>910042-001</value>
+        <value>910044-001</value>
+        <value>910046-001</value>
+        <value>910048-001</value>
+        <value>910050-001</value>
+        <value>910052-001</value>
+        <value>910054-001</value>
+        <value>910056-001</value>
+        <value>910058-001</value>
+        <value>910060-001</value>
+        <value>910062-001</value>
+        <value>910064-001</value>
+        <value>910066-001</value>
+        <value>910068-001</value>
+        <value>910070-001</value>
+        <value>910072-001</value>
+        <value>910074-001</value>
+        <value>910076-001</value>
+        <value>910078-001</value>
+        <value>910080-001</value>
+        <value>910082-001</value>
+        <value>910084-001</value>
+        <value>910086-001</value>
+        <value>910088-001</value>
+        <value>910090-001</value>
+        <value>910092-001</value>
+        <value>910094-001</value>
+        <value>910096-001</value>
+        <value>910098-001</value>
+        <value>9010102-001</value>
+        <value>9010104-001</value>
+        <value>9010106-001</value>
+        <value>9010108-001</value>
+        <value>9010110-001</value>
+        <value>9010112-001</value>
+        <value>9010114-001</value>
+        <value>9010116-001</value>
+        <value>9000217-001</value>
+    </util:set>
+
+</beans>
